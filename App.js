@@ -2,7 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native';
 import gameOptions from './constants'
 
+import { NavigationContainer } from '@react-navigation/native';
+import * as React from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Selection from './Selection';
+import Clock from './Clock';
 
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const GameOption = ({go}) => (
@@ -13,17 +19,12 @@ export default function App() {
 
 
   return (
-    <View style={styles.container}>
-      <FlatList
-      style={styles.list}
-        data={gameOptions}
-        renderItem={({ item }) => (
-          <GameOption go={item}/>
-        )}
-        numColumns={3}
-        keyExtractor={(item, index) => index}
-      />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Selection" component={Selection} />
+        <Stack.Screen name="Clock" component={Clock} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
